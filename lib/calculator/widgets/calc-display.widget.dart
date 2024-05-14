@@ -65,7 +65,7 @@ class _CalcDisplayWidgetState extends State<CalcDisplayWidget> {
                       const Icon(Icons.indeterminate_check_box),
                       quantity == 1
                           ? null
-                          : () => orderItemRepository.subQuantity(index)),
+                          : () => orderItemRepository.decreaseQuantity(index)),
                   SizedBox(
                       height: 20.0,
                       width: 35.0,
@@ -83,7 +83,7 @@ class _CalcDisplayWidgetState extends State<CalcDisplayWidget> {
                       const Icon(Icons.add_box),
                       quantity == 999
                           ? null
-                          : () => orderItemRepository.addQuantity(index)),
+                          : () => orderItemRepository.increaseQuantity(index)),
                 ],
               )
             ],

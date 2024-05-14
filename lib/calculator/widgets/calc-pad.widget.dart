@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:money_calc/_models/order-item.model.dart';
+import 'package:provider/provider.dart';
 
 class CalcPadWidget extends StatelessWidget {
   const CalcPadWidget({super.key});
 
   final double calcButtonSpacing = 4.0;
-
-  calcButtonPressed(String buttonValue) {}
 
   Expanded calcButton(String value, int flex, Color buttonColor,
       Function()? calcButtonPressed) {
@@ -27,18 +27,23 @@ class CalcPadWidget extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10.0),
               ),
             ),
-            child: Text(value,
-                style: const TextStyle(
-                    color: Colors.black,
-                    fontSize: 24,
-                    fontWeight: FontWeight.w900,
-                    height: 0)),
+            child: Text(
+              value,
+              style: const TextStyle(
+                  color: Colors.black,
+                  fontSize: 24,
+                  fontWeight: FontWeight.w900,
+                  height: 0),
+            ),
           )),
     );
   }
 
   @override
   Widget build(BuildContext context) {
+    OrderItemRepository orderItemRepository =
+        Provider.of<OrderItemRepository>(context, listen: false);
+
     return Expanded(
       flex: 1,
       child: Column(
@@ -47,22 +52,22 @@ class CalcPadWidget extends StatelessWidget {
             child: Row(
               children: [
                 calcButton('AC', 1, Colors.grey.shade300,
-                    () => calcButtonPressed('AC')),
+                    () => orderItemRepository.reset()),
                 SizedBox(
                   width: calcButtonSpacing,
                 ),
-                calcButton(
-                    '÷', 1, Colors.grey.shade300, () => calcButtonPressed('/')),
+                calcButton('C', 1, Colors.grey.shade300,
+                    () => orderItemRepository.removeCurrentOrderItem()),
                 SizedBox(
                   width: calcButtonSpacing,
                 ),
-                calcButton(
-                    '×', 1, Colors.grey.shade300, () => calcButtonPressed('*')),
+                calcButton("⇄", 1, Colors.grey.shade300,
+                    () => orderItemRepository.switchSelectedFields()),
                 SizedBox(
                   width: calcButtonSpacing,
                 ),
-                calcButton(
-                    '⌫', 1, Colors.grey.shade300, () => calcButtonPressed('⌫')),
+                calcButton('⌫', 1, Colors.grey.shade300,
+                    () => orderItemRepository.calcButtonBackSpacePressed()),
               ],
             ),
           ),
@@ -72,20 +77,23 @@ class CalcPadWidget extends StatelessWidget {
           Expanded(
             child: Row(
               children: [
-                calcButton('7', 1, Colors.white, () => calcButtonPressed('7')),
+                calcButton('7', 1, Colors.white,
+                    () => orderItemRepository.calcButtonPressed('7')),
                 SizedBox(
                   width: calcButtonSpacing,
                 ),
-                calcButton('8', 1, Colors.white, () => calcButtonPressed('8')),
+                calcButton('8', 1, Colors.white,
+                    () => orderItemRepository.calcButtonPressed('8')),
                 SizedBox(
                   width: calcButtonSpacing,
                 ),
-                calcButton('9', 1, Colors.white, () => calcButtonPressed('9')),
+                calcButton('9', 1, Colors.white,
+                    () => orderItemRepository.calcButtonPressed('9')),
                 SizedBox(
                   width: calcButtonSpacing,
                 ),
-                calcButton(
-                    '-', 1, Colors.grey.shade300, () => calcButtonPressed('-')),
+                calcButton('+/-', 1, Colors.grey.shade300,
+                    () => orderItemRepository.changeSign()),
               ],
             ),
           ),
@@ -95,20 +103,23 @@ class CalcPadWidget extends StatelessWidget {
           Expanded(
             child: Row(
               children: [
-                calcButton('4', 1, Colors.white, () => calcButtonPressed('4')),
+                calcButton('4', 1, Colors.white,
+                    () => orderItemRepository.calcButtonPressed('4')),
                 SizedBox(
                   width: calcButtonSpacing,
                 ),
-                calcButton('5', 1, Colors.white, () => calcButtonPressed('5')),
+                calcButton('5', 1, Colors.white,
+                    () => orderItemRepository.calcButtonPressed('5')),
                 SizedBox(
                   width: calcButtonSpacing,
                 ),
-                calcButton('6', 1, Colors.white, () => calcButtonPressed('6')),
+                calcButton('6', 1, Colors.white,
+                    () => orderItemRepository.calcButtonPressed('6')),
                 SizedBox(
                   width: calcButtonSpacing,
                 ),
-                calcButton(
-                    '+', 1, Colors.grey.shade300, () => calcButtonPressed('+')),
+                calcButton('+', 1, Colors.grey.shade300,
+                    () => orderItemRepository.calcButtonPlusPressed()),
               ],
             ),
           ),
@@ -126,18 +137,30 @@ class CalcPadWidget extends StatelessWidget {
                         Expanded(
                             child: Row(
                           children: [
-                            calcButton('1', 1, Colors.white,
-                                () => calcButtonPressed('1')),
+                            calcButton(
+                                '1',
+                                1,
+                                Colors.white,
+                                () =>
+                                    orderItemRepository.calcButtonPressed('1')),
                             SizedBox(
                               width: calcButtonSpacing,
                             ),
-                            calcButton('2', 1, Colors.white,
-                                () => calcButtonPressed('2')),
+                            calcButton(
+                                '2',
+                                1,
+                                Colors.white,
+                                () =>
+                                    orderItemRepository.calcButtonPressed('2')),
                             SizedBox(
                               width: calcButtonSpacing,
                             ),
-                            calcButton('3', 1, Colors.white,
-                                () => calcButtonPressed('3')),
+                            calcButton(
+                                '3',
+                                1,
+                                Colors.white,
+                                () =>
+                                    orderItemRepository.calcButtonPressed('3')),
                           ],
                         )),
                         SizedBox(
@@ -146,13 +169,21 @@ class CalcPadWidget extends StatelessWidget {
                         Expanded(
                             child: Row(
                           children: [
-                            calcButton('000', 2, Colors.white,
-                                () => calcButtonPressed('000')),
+                            calcButton(
+                                '000',
+                                2,
+                                Colors.white,
+                                () => orderItemRepository
+                                    .calcButtonPressed('000')),
                             SizedBox(
                               width: calcButtonSpacing,
                             ),
-                            calcButton('0', 1, Colors.white,
-                                () => calcButtonPressed('0')),
+                            calcButton(
+                                '0',
+                                1,
+                                Colors.white,
+                                () =>
+                                    orderItemRepository.calcButtonPressed('0')),
                           ],
                         ))
                       ],
@@ -160,8 +191,7 @@ class CalcPadWidget extends StatelessWidget {
                 SizedBox(
                   width: calcButtonSpacing,
                 ),
-                calcButton(
-                    '=', 1, Colors.grey.shade300, () => calcButtonPressed('=')),
+                calcButton('=', 1, Colors.grey.shade300, () => null),
               ],
             ),
           )
