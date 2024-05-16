@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:money_calc/_common/helpers/number.helper.dart';
+import 'package:money_calc/_enums/order-item.enum.dart';
 import 'package:money_calc/_models/order-item.model.dart';
 import 'package:provider/provider.dart';
+import 'package:scroll_to_index/scroll_to_index.dart';
 
 class CalcDisplayWidget extends StatefulWidget {
   const CalcDisplayWidget({super.key});
@@ -11,6 +13,8 @@ class CalcDisplayWidget extends StatefulWidget {
 }
 
 class _CalcDisplayWidgetState extends State<CalcDisplayWidget> {
+  final AutoScrollController _scrollController = AutoScrollController();
+
   Row orderItemWidget({
     required OrderItemRepository orderItemRepository,
     required int index,
@@ -47,14 +51,25 @@ class _CalcDisplayWidgetState extends State<CalcDisplayWidget> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Text(
-                NumberHelper.formatPrice(price),
-                style: const TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                  height: 0,
-                ),
-              ),
+              Container(
+                  decoration: orderItemRepository.currentIndex == index &&
+                          orderItemRepository.selectedField ==
+                              OrderItemSelectedField.price
+                      ? BoxDecoration(
+                          border: Border.all(
+                          color: Colors.orange.shade600,
+                          width: 1.0,
+                        ))
+                      : null,
+                  child: Text(
+                    NumberHelper.formatPrice(price),
+                    style: const TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      height: 0,
+                    ),
+                    textAlign: TextAlign.center,
+                  )),
               const SizedBox(
                 height: 5.0,
               ),
@@ -66,18 +81,27 @@ class _CalcDisplayWidgetState extends State<CalcDisplayWidget> {
                       quantity == 1
                           ? null
                           : () => orderItemRepository.decreaseQuantity(index)),
-                  SizedBox(
+                  Container(
+                      decoration: orderItemRepository.currentIndex == index &&
+                              orderItemRepository.selectedField ==
+                                  OrderItemSelectedField.quantity
+                          ? BoxDecoration(
+                              border: Border.all(
+                              color: Colors.orange.shade600,
+                              width: 1.0,
+                            ))
+                          : null,
+                      width: 38.0,
                       height: 20.0,
-                      width: 35.0,
                       child: Center(
                           child: Text(
                         quantity.toString(),
-                        style: TextStyle(
-                          color: Colors.red.shade500,
+                        style: const TextStyle(
                           fontSize: 14,
-                          fontWeight: FontWeight.w400,
+                          fontWeight: FontWeight.bold,
                           height: 0,
                         ),
+                        textAlign: TextAlign.center,
                       ))),
                   quantityChangeButton(
                       const Icon(Icons.add_box),
@@ -127,22 +151,32 @@ class _CalcDisplayWidgetState extends State<CalcDisplayWidget> {
         builder: (context, orderItemRepository, child) {
           final orderItems = orderItemRepository.orderItems;
 
+          if (orderItemRepository.currentIndex != 0) {
+            _scrollController.scrollToIndex(orderItemRepository.currentIndex);
+          }
+
           return Column(
             children: [
               Expanded(
                   child: ListView.separated(
+                      controller: _scrollController,
                       itemBuilder: (BuildContext context, int index) {
                         final orderItem = orderItems[index];
 
-                        return Padding(
-                          padding:
-                              const EdgeInsets.only(left: 10.0, right: 10.0),
-                          child: orderItemWidget(
-                            orderItemRepository: orderItemRepository,
-                            index: index,
-                            name: orderItem.name,
-                            price: orderItem.price,
-                            quantity: orderItem.quantity,
+                        return AutoScrollTag(
+                          key: ValueKey(index),
+                          controller: _scrollController,
+                          index: index,
+                          child: Padding(
+                            padding:
+                                const EdgeInsets.only(left: 10.0, right: 10.0),
+                            child: orderItemWidget(
+                              orderItemRepository: orderItemRepository,
+                              index: index,
+                              name: orderItem.name,
+                              price: orderItem.price,
+                              quantity: orderItem.quantity,
+                            ),
                           ),
                         );
                       },
