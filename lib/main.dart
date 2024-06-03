@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:money_calc/_models/order-item.model.dart';
+import 'package:money_calc/_common/providers/order-item.providers.dart';
 import 'package:money_calc/calculator/calculator.screen.dart';
 import 'package:provider/provider.dart';
 
 void main() {
   runApp(
     MultiProvider(providers: [
-      ChangeNotifierProvider(create: (context) => OrderItemRepository()),
+      ChangeNotifierProvider(create: (context) => OrderItemProvider()),
     ], child: const MainApp()),
   );
 }

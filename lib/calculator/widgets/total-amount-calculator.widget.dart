@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:money_calc/calculator/widgets/calc-pad.widget.dart';
 import 'package:money_calc/calculator/widgets/confirm-bill-button.widget.dart';
-import 'package:money_calc/calculator/widgets/suggestion-money.widget.dart';
 
 class TotalAmountCalculatorWidget extends StatelessWidget {
   const TotalAmountCalculatorWidget({super.key});
@@ -10,8 +9,8 @@ class TotalAmountCalculatorWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Column(
       children: [
-        SuggestionMoneyWidget(),
-        SizedBox(height: 8.0),
+        // SuggestionMoneyWidget(),
+        // SizedBox(height: 8.0),
         ConfirmBillButtonWidget(),
         SizedBox(height: 8.0),
         CalcPadWidget()

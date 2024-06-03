@@ -1,29 +1,29 @@
 import 'dart:collection';
 
 import 'package:flutter/material.dart';
-import 'package:money_calc/_enums/order-item.enum.dart';
+import 'package:money_calc/_common/enums/order-item.enum.dart';
 
-class OrderItemModel {
+class OrderItem {
   int productId = 0;
   String name = '';
   int price;
   int quantity;
 
-  OrderItemModel({
+  OrderItem({
     required this.price,
     required this.quantity,
   });
 
-  static OrderItemModel defaultOrderItem() {
-    return OrderItemModel(price: 0, quantity: 0);
+  static OrderItem defaultOrderItem() {
+    return OrderItem(price: 0, quantity: 0);
   }
 }
 
-class OrderItemRepository extends ChangeNotifier {
-  final List<OrderItemModel> _orderItems = [
-    OrderItemModel.defaultOrderItem(),
+class OrderItemProvider extends ChangeNotifier {
+  final List<OrderItem> _orderItems = [
+    OrderItem.defaultOrderItem(),
   ];
-  UnmodifiableListView<OrderItemModel> get orderItems =>
+  UnmodifiableListView<OrderItem> get orderItems =>
       UnmodifiableListView(_orderItems);
 
   int _totalPrice = 0;
@@ -38,7 +38,7 @@ class OrderItemRepository extends ChangeNotifier {
   void reset() {
     _orderItems.clear();
 
-    final OrderItemModel orderItem = OrderItemModel.defaultOrderItem();
+    final OrderItem orderItem = OrderItem.defaultOrderItem();
 
     _orderItems.add(orderItem);
     _totalPrice = 0;
@@ -53,7 +53,7 @@ class OrderItemRepository extends ChangeNotifier {
       return reset();
     }
 
-    final OrderItemModel orderItem = _orderItems[_currentIndex];
+    final OrderItem orderItem = _orderItems[_currentIndex];
     _orderItems.removeAt(_currentIndex);
     _totalPrice -= (orderItem.price * orderItem.quantity);
     _currentIndex--;
@@ -66,7 +66,7 @@ class OrderItemRepository extends ChangeNotifier {
     if (_orderItems[index].quantity >= 999) {
       _orderItems[index].quantity = 999;
     } else {
-      final OrderItemModel orderItem = _orderItems[index];
+      final OrderItem orderItem = _orderItems[index];
       _orderItems[index].quantity++;
       _totalPrice += orderItem.price;
     }
@@ -78,7 +78,7 @@ class OrderItemRepository extends ChangeNotifier {
     if (_orderItems[index].quantity <= 1) {
       _orderItems[index].quantity = 1;
     } else {
-      final OrderItemModel orderItem = _orderItems[index];
+      final OrderItem orderItem = _orderItems[index];
       _orderItems[index].quantity--;
       _totalPrice -= orderItem.price;
     }
@@ -87,7 +87,7 @@ class OrderItemRepository extends ChangeNotifier {
   }
 
   void calcButtonPressed(String buttonValue) {
-    final OrderItemModel orderItem = _orderItems[_currentIndex];
+    final OrderItem orderItem = _orderItems[_currentIndex];
     final int price = orderItem.price;
     final int quantity = orderItem.quantity;
 
@@ -123,7 +123,7 @@ class OrderItemRepository extends ChangeNotifier {
   }
 
   void calcButtonBackSpacePressed() {
-    final OrderItemModel orderItem = _orderItems[_currentIndex];
+    final OrderItem orderItem = _orderItems[_currentIndex];
     final int price = orderItem.price;
     final int quantity = orderItem.quantity;
 
@@ -163,8 +163,8 @@ class OrderItemRepository extends ChangeNotifier {
   }
 
   void calcButtonPlusPressed() {
-    final OrderItemModel orderItem = OrderItemModel.defaultOrderItem();
-    final OrderItemModel currentOrderItem = _orderItems[_currentIndex];
+    final OrderItem orderItem = OrderItem.defaultOrderItem();
+    final OrderItem currentOrderItem = _orderItems[_currentIndex];
 
     if (currentOrderItem.quantity == 0) {
       _orderItems[_currentIndex].quantity = 1;
@@ -179,7 +179,7 @@ class OrderItemRepository extends ChangeNotifier {
   }
 
   void changeSign() {
-    final OrderItemModel orderItem = _orderItems[_currentIndex];
+    final OrderItem orderItem = _orderItems[_currentIndex];
     final int newPrice = -orderItem.price;
 
     _orderItems[_currentIndex].price = newPrice;

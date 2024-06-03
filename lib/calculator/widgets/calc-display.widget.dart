@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:money_calc/_common/enums/order-item.enum.dart';
 import 'package:money_calc/_common/helpers/number.helper.dart';
-import 'package:money_calc/_enums/order-item.enum.dart';
-import 'package:money_calc/_models/order-item.model.dart';
+import 'package:money_calc/_common/providers/order-item.providers.dart';
 import 'package:provider/provider.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 
@@ -16,7 +16,7 @@ class _CalcDisplayWidgetState extends State<CalcDisplayWidget> {
   final AutoScrollController _scrollController = AutoScrollController();
 
   Row orderItemWidget({
-    required OrderItemRepository orderItemRepository,
+    required OrderItemProvider orderItemProvider,
     required int index,
     required String name,
     required int price,
@@ -52,8 +52,8 @@ class _CalcDisplayWidgetState extends State<CalcDisplayWidget> {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Container(
-                  decoration: orderItemRepository.currentIndex == index &&
-                          orderItemRepository.selectedField ==
+                  decoration: orderItemProvider.currentIndex == index &&
+                          orderItemProvider.selectedField ==
                               OrderItemSelectedField.price
                       ? BoxDecoration(
                           border: Border.all(
@@ -80,10 +80,10 @@ class _CalcDisplayWidgetState extends State<CalcDisplayWidget> {
                       const Icon(Icons.indeterminate_check_box),
                       quantity == 1
                           ? null
-                          : () => orderItemRepository.decreaseQuantity(index)),
+                          : () => orderItemProvider.decreaseQuantity(index)),
                   Container(
-                      decoration: orderItemRepository.currentIndex == index &&
-                              orderItemRepository.selectedField ==
+                      decoration: orderItemProvider.currentIndex == index &&
+                              orderItemProvider.selectedField ==
                                   OrderItemSelectedField.quantity
                           ? BoxDecoration(
                               border: Border.all(
@@ -107,7 +107,7 @@ class _CalcDisplayWidgetState extends State<CalcDisplayWidget> {
                       const Icon(Icons.add_box),
                       quantity == 999
                           ? null
-                          : () => orderItemRepository.increaseQuantity(index)),
+                          : () => orderItemProvider.increaseQuantity(index)),
                 ],
               )
             ],
@@ -147,12 +147,12 @@ class _CalcDisplayWidgetState extends State<CalcDisplayWidget> {
               blurRadius: 16.0,
             )
           ]),
-      child: Consumer<OrderItemRepository>(
-        builder: (context, orderItemRepository, child) {
-          final orderItems = orderItemRepository.orderItems;
+      child: Consumer<OrderItemProvider>(
+        builder: (context, orderItemProvider, child) {
+          final orderItems = orderItemProvider.orderItems;
 
-          if (orderItemRepository.currentIndex != 0) {
-            _scrollController.scrollToIndex(orderItemRepository.currentIndex);
+          if (orderItemProvider.currentIndex != 0) {
+            _scrollController.scrollToIndex(orderItemProvider.currentIndex);
           }
 
           return Column(
@@ -171,7 +171,7 @@ class _CalcDisplayWidgetState extends State<CalcDisplayWidget> {
                             padding:
                                 const EdgeInsets.only(left: 10.0, right: 10.0),
                             child: orderItemWidget(
-                              orderItemRepository: orderItemRepository,
+                              orderItemProvider: orderItemProvider,
                               index: index,
                               name: orderItem.name,
                               price: orderItem.price,
@@ -197,8 +197,7 @@ class _CalcDisplayWidgetState extends State<CalcDisplayWidget> {
                     width: 142.0,
                     margin: const EdgeInsets.only(left: 10.0, right: 10.0),
                     child: Text(
-                        NumberHelper.formatPrice(
-                            orderItemRepository.totalPrice),
+                        NumberHelper.formatPrice(orderItemProvider.totalPrice),
                         style: TextStyle(
                             color: Colors.orange.shade700,
                             fontSize: 24,
