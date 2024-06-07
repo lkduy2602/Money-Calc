@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:money_calc/_common/providers/order-item.providers.dart';
+import 'package:money_calc/_common/providers/order_item.providers.dart';
 import 'package:money_calc/calculator/calculator.screen.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
   runApp(
     MultiProvider(providers: [
       ChangeNotifierProvider(create: (context) => OrderItemProvider()),
@@ -30,8 +32,7 @@ class _MainAppState extends State<MainApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        theme: ThemeData(
-            useMaterial3: true, scaffoldBackgroundColor: Colors.grey.shade50),
+        theme: ThemeData(useMaterial3: true, scaffoldBackgroundColor: Colors.grey.shade50),
         home: Scaffold(
             body: SafeArea(
               child: Padding(

@@ -1,1 +1,0 @@
-enum OrderItemSelectedField { price, quantity }

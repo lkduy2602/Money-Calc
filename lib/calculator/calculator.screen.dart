@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:money_calc/calculator/widgets/calc-display.widget.dart';
-import 'package:money_calc/calculator/widgets/total-amount-calculator.widget.dart';
+import 'package:money_calc/calculator/widgets/calc_display.widget.dart';
+import 'package:money_calc/calculator/widgets/total_amount_calculator.widget.dart';
 
 class CalculatorScreen extends StatelessWidget {
   const CalculatorScreen({super.key});

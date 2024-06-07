@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:money_calc/_common/providers/order-item.providers.dart';
+import 'package:money_calc/_common/providers/order_item.providers.dart';
 import 'package:provider/provider.dart';
 
 class CalcPadWidget extends StatelessWidget {

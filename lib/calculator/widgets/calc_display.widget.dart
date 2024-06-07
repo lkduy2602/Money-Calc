@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:money_calc/_common/enums/order-item.enum.dart';
+import 'package:money_calc/_common/enums/order_item.enum.dart';
 import 'package:money_calc/_common/helpers/number.helper.dart';
-import 'package:money_calc/_common/providers/order-item.providers.dart';
+import 'package:money_calc/_common/providers/order_item.providers.dart';
 import 'package:provider/provider.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 
@@ -53,8 +53,7 @@ class _CalcDisplayWidgetState extends State<CalcDisplayWidget> {
             children: [
               Container(
                   decoration: orderItemProvider.currentIndex == index &&
-                          orderItemProvider.selectedField ==
-                              OrderItemSelectedField.price
+                          orderItemProvider.selectedField == OrderItemSelectedFieldEnum.price
                       ? BoxDecoration(
                           border: Border.all(
                           color: Colors.orange.shade600,
@@ -76,15 +75,11 @@ class _CalcDisplayWidgetState extends State<CalcDisplayWidget> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  quantityChangeButton(
-                      const Icon(Icons.indeterminate_check_box),
-                      quantity == 1
-                          ? null
-                          : () => orderItemProvider.decreaseQuantity(index)),
+                  quantityChangeButton(const Icon(Icons.indeterminate_check_box),
+                      quantity == 1 ? null : () => orderItemProvider.decreaseQuantity(index)),
                   Container(
                       decoration: orderItemProvider.currentIndex == index &&
-                              orderItemProvider.selectedField ==
-                                  OrderItemSelectedField.quantity
+                              orderItemProvider.selectedField == OrderItemSelectedFieldEnum.quantity
                           ? BoxDecoration(
                               border: Border.all(
                               color: Colors.orange.shade600,
@@ -103,11 +98,8 @@ class _CalcDisplayWidgetState extends State<CalcDisplayWidget> {
                         ),
                         textAlign: TextAlign.center,
                       ))),
-                  quantityChangeButton(
-                      const Icon(Icons.add_box),
-                      quantity == 999
-                          ? null
-                          : () => orderItemProvider.increaseQuantity(index)),
+                  quantityChangeButton(const Icon(Icons.add_box),
+                      quantity == 999 ? null : () => orderItemProvider.increaseQuantity(index)),
                 ],
               )
             ],
@@ -117,8 +109,7 @@ class _CalcDisplayWidgetState extends State<CalcDisplayWidget> {
     );
   }
 
-  SizedBox quantityChangeButton(
-      Icon icon, void Function()? quantityChangeButtonPressed) {
+  SizedBox quantityChangeButton(Icon icon, void Function()? quantityChangeButtonPressed) {
     return SizedBox(
       width: 20.0,
       height: 20.0,
@@ -138,15 +129,12 @@ class _CalcDisplayWidgetState extends State<CalcDisplayWidget> {
       padding: const EdgeInsets.only(
         top: 10.0,
       ),
-      decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(10.0),
-          boxShadow: const [
-            BoxShadow(
-              color: Colors.black12,
-              blurRadius: 16.0,
-            )
-          ]),
+      decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10.0), boxShadow: const [
+        BoxShadow(
+          color: Colors.black12,
+          blurRadius: 16.0,
+        )
+      ]),
       child: Consumer<OrderItemProvider>(
         builder: (context, orderItemProvider, child) {
           final orderItems = orderItemProvider.orderItems;
@@ -168,8 +156,7 @@ class _CalcDisplayWidgetState extends State<CalcDisplayWidget> {
                           controller: _scrollController,
                           index: index,
                           child: Padding(
-                            padding:
-                                const EdgeInsets.only(left: 10.0, right: 10.0),
+                            padding: const EdgeInsets.only(left: 10.0, right: 10.0),
                             child: orderItemWidget(
                               orderItemProvider: orderItemProvider,
                               index: index,
@@ -180,29 +167,20 @@ class _CalcDisplayWidgetState extends State<CalcDisplayWidget> {
                           ),
                         );
                       },
-                      separatorBuilder: (BuildContext context, int index) =>
-                          const Divider(),
+                      separatorBuilder: (BuildContext context, int index) => const Divider(),
                       itemCount: orderItems.length)),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   const Text('Tổng:',
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          height: 0)),
+                      style: TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold, height: 0)),
                   Container(
                     alignment: Alignment.center,
                     width: 142.0,
                     margin: const EdgeInsets.only(left: 10.0, right: 10.0),
-                    child: Text(
-                        NumberHelper.formatPrice(orderItemProvider.totalPrice),
+                    child: Text(NumberHelper.formatPrice(orderItemProvider.totalPrice),
                         style: TextStyle(
-                            color: Colors.orange.shade700,
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                            height: 0)),
+                            color: Colors.orange.shade700, fontSize: 24, fontWeight: FontWeight.bold, height: 0)),
                   )
                 ],
               )

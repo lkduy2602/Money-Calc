@@ -1,7 +1,7 @@
 import 'dart:collection';
 
 import 'package:flutter/material.dart';
-import 'package:money_calc/_common/enums/order-item.enum.dart';
+import 'package:money_calc/_common/enums/order_item.enum.dart';
 
 class OrderItem {
   int productId = 0;
@@ -23,8 +23,7 @@ class OrderItemProvider extends ChangeNotifier {
   final List<OrderItem> _orderItems = [
     OrderItem.defaultOrderItem(),
   ];
-  UnmodifiableListView<OrderItem> get orderItems =>
-      UnmodifiableListView(_orderItems);
+  UnmodifiableListView<OrderItem> get orderItems => UnmodifiableListView(_orderItems);
 
   int _totalPrice = 0;
   int get totalPrice => _totalPrice;
@@ -32,8 +31,8 @@ class OrderItemProvider extends ChangeNotifier {
   int _currentIndex = 0;
   int get currentIndex => _currentIndex;
 
-  OrderItemSelectedField _selectedField = OrderItemSelectedField.price;
-  OrderItemSelectedField get selectedField => _selectedField;
+  OrderItemSelectedFieldEnum _selectedField = OrderItemSelectedFieldEnum.price;
+  OrderItemSelectedFieldEnum get selectedField => _selectedField;
 
   void reset() {
     _orderItems.clear();
@@ -43,7 +42,7 @@ class OrderItemProvider extends ChangeNotifier {
     _orderItems.add(orderItem);
     _totalPrice = 0;
     _currentIndex = 0;
-    _selectedField = OrderItemSelectedField.price;
+    _selectedField = OrderItemSelectedFieldEnum.price;
 
     notifyListeners();
   }
@@ -57,7 +56,7 @@ class OrderItemProvider extends ChangeNotifier {
     _orderItems.removeAt(_currentIndex);
     _totalPrice -= (orderItem.price * orderItem.quantity);
     _currentIndex--;
-    _selectedField = OrderItemSelectedField.price;
+    _selectedField = OrderItemSelectedFieldEnum.price;
 
     notifyListeners();
   }
@@ -91,18 +90,14 @@ class OrderItemProvider extends ChangeNotifier {
     final int price = orderItem.price;
     final int quantity = orderItem.quantity;
 
-    if (_selectedField == OrderItemSelectedField.price) {
+    if (_selectedField == OrderItemSelectedFieldEnum.price) {
       final String newPrice = price.toString() + buttonValue;
       final int intPrice = int.parse(newPrice);
       if (intPrice > 999999999) return;
 
       _orderItems[_currentIndex].price = intPrice;
-      _updateTotalPrice(
-          oldPrice: price,
-          oldQuantity: quantity,
-          newPrice: intPrice,
-          newQuantity: quantity);
-    } else if (_selectedField == OrderItemSelectedField.quantity) {
+      _updateTotalPrice(oldPrice: price, oldQuantity: quantity, newPrice: intPrice, newQuantity: quantity);
+    } else if (_selectedField == OrderItemSelectedFieldEnum.quantity) {
       final String newQuantity = quantity.toString() + buttonValue;
       int intQuantity = int.parse(newQuantity);
       if (intQuantity > 9999) return;
@@ -112,11 +107,7 @@ class OrderItemProvider extends ChangeNotifier {
       }
 
       _orderItems[_currentIndex].quantity = intQuantity;
-      _updateTotalPrice(
-          oldPrice: price,
-          oldQuantity: quantity,
-          newPrice: price,
-          newQuantity: intQuantity);
+      _updateTotalPrice(oldPrice: price, oldQuantity: quantity, newPrice: price, newQuantity: intQuantity);
     }
 
     notifyListeners();
@@ -127,36 +118,28 @@ class OrderItemProvider extends ChangeNotifier {
     final int price = orderItem.price;
     final int quantity = orderItem.quantity;
 
-    if (_selectedField == OrderItemSelectedField.price) {
+    if (_selectedField == OrderItemSelectedFieldEnum.price) {
       if (price == 0) return;
 
       final int newPrice = orderItem.price ~/ 10;
       _orderItems[_currentIndex].price = newPrice;
-      _updateTotalPrice(
-          oldPrice: price,
-          oldQuantity: quantity,
-          newPrice: newPrice,
-          newQuantity: quantity);
-    } else if (_selectedField == OrderItemSelectedField.quantity) {
+      _updateTotalPrice(oldPrice: price, oldQuantity: quantity, newPrice: newPrice, newQuantity: quantity);
+    } else if (_selectedField == OrderItemSelectedFieldEnum.quantity) {
       if (quantity == 1) return;
 
       final int newQuantity = quantity ~/ 10;
       _orderItems[_currentIndex].quantity = newQuantity;
-      _updateTotalPrice(
-          oldPrice: price,
-          oldQuantity: quantity,
-          newPrice: price,
-          newQuantity: newQuantity);
+      _updateTotalPrice(oldPrice: price, oldQuantity: quantity, newPrice: price, newQuantity: newQuantity);
     }
 
     notifyListeners();
   }
 
   void switchSelectedFields() {
-    if (_selectedField == OrderItemSelectedField.price) {
-      _selectedField = OrderItemSelectedField.quantity;
-    } else if (_selectedField == OrderItemSelectedField.quantity) {
-      _selectedField = OrderItemSelectedField.price;
+    if (_selectedField == OrderItemSelectedFieldEnum.price) {
+      _selectedField = OrderItemSelectedFieldEnum.quantity;
+    } else if (_selectedField == OrderItemSelectedFieldEnum.quantity) {
+      _selectedField = OrderItemSelectedFieldEnum.price;
     }
 
     notifyListeners();
@@ -173,7 +156,7 @@ class OrderItemProvider extends ChangeNotifier {
 
     _orderItems.add(orderItem);
     _currentIndex++;
-    _selectedField = OrderItemSelectedField.price;
+    _selectedField = OrderItemSelectedFieldEnum.price;
 
     notifyListeners();
   }
@@ -199,7 +182,6 @@ class OrderItemProvider extends ChangeNotifier {
     required int newPrice,
     required int newQuantity,
   }) {
-    _totalPrice =
-        _totalPrice - (oldPrice * oldQuantity) + (newPrice * newQuantity);
+    _totalPrice = _totalPrice - (oldPrice * oldQuantity) + (newPrice * newQuantity);
   }
 }

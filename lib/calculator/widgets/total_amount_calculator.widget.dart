@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:money_calc/calculator/widgets/calc-pad.widget.dart';
-import 'package:money_calc/calculator/widgets/confirm-bill-button.widget.dart';
+import 'package:money_calc/calculator/widgets/calc_pad.widget.dart';
+import 'package:money_calc/calculator/widgets/confirm_bill_button.widget.dart';
 
 class TotalAmountCalculatorWidget extends StatelessWidget {
   const TotalAmountCalculatorWidget({super.key});
