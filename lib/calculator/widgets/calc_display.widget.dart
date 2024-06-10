@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:money_calc/_common/enums/order_item.enum.dart';
+import 'package:money_calc/_common/enums/providers.enum.dart';
 import 'package:money_calc/_common/helpers/number.helper.dart';
 import 'package:money_calc/_common/providers/order_item.providers.dart';
 import 'package:provider/provider.dart';

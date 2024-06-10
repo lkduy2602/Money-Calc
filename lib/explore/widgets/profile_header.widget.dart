@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:money_calc/_common/helpers/shared_preferences.helper.dart';
 
 class ProfileHeaderWidget extends StatefulWidget {
   const ProfileHeaderWidget({super.key});
@@ -8,6 +9,25 @@ class ProfileHeaderWidget extends StatefulWidget {
 }
 
 class _ProfileHeaderWidgetState extends State<ProfileHeaderWidget> {
+  String userName = '';
+  String userAvatar = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _loadProfile();
+  }
+
+  Future<void> _loadProfile() async {
+    final [getUserName, getUserAvatar] =
+        await Future.wait<String>([SharedPreferencesHelper.getUserName(), SharedPreferencesHelper.getUserAvatar()]);
+
+    setState(() {
+      userName = getUserName;
+      userAvatar = getUserAvatar;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Ink(
@@ -22,9 +42,9 @@ class _ProfileHeaderWidgetState extends State<ProfileHeaderWidget> {
               children: [
                 Icon(Icons.account_circle, size: 68.0, color: Colors.grey.shade500),
                 const SizedBox(width: 10.0),
-                const Text(
-                  'Lê Khánh Duy',
-                  style: TextStyle(color: Colors.black87, fontSize: 20, fontWeight: FontWeight.w700, height: 0),
+                Text(
+                  userName,
+                  style: const TextStyle(color: Colors.black87, fontSize: 20, fontWeight: FontWeight.w700, height: 0),
                 )
               ],
             ),

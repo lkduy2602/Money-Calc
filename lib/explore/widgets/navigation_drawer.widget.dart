@@ -51,7 +51,7 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
               Ink(
                   color: Colors.white,
                   child: InkWell(
-                    onTap: () => goToScreen('sssss'),
+                    onTap: () {},
                     child: generateNavigationItem(Icons.category, 'Quản lý DANH MỤC'),
                   )),
               const SizedBox(height: 1.0),

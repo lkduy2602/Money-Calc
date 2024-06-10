@@ -1,7 +1,7 @@
 import 'dart:collection';
 
 import 'package:flutter/material.dart';
-import 'package:money_calc/_common/enums/order_item.enum.dart';
+import 'package:money_calc/_common/enums/providers.enum.dart';
 
 class OrderItem {
   int productId = 0;
