@@ -5,7 +5,8 @@ CREATE TABLE "categories" (
     "updated_at" text NOT NULL DEFAULT(datetime()),
     "id" integer PRIMARY KEY AUTOINCREMENT NOT NULL,
     "name" text NOT NULL,
-    "normalized_text" text NOT NULL
+    "normalized_text" text NOT NULL,
+    "icon" text NOT NULL
 );
 
 -- expense_types definition
@@ -92,5 +93,5 @@ CREATE TABLE "product_price_history" (
     "effective_date" text NOT NULL DEFAULT(datetime()),
     "price_type" integer NOT NULL DEFAULT(1),
     "product_id" integer NOT NULL,
-    CONSTRAINT "price_history_products_FK" FOREIGN KEY ("product_id") REFERENCES "products" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION
+    CONSTRAINT "product_price_history_product_FK" FOREIGN KEY ("product_id") REFERENCES "products" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION
 );

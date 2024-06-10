@@ -9,6 +9,7 @@ abstract class CategoryTable {
   static const String id = 'id';
   static const String name = 'name';
   static const String normalizedText = 'normalized_text';
+  static const String icon = 'icon';
 }
 
 @JsonSerializable()
@@ -16,8 +17,8 @@ class CategoryModel extends CommonModel {
   @JsonKey(name: CategoryTable.id)
   int? id;
 
-  String? _name;
   @JsonKey(name: CategoryTable.name)
+  String? _name;
   String? get name => _name;
   set name(String? value) {
     _name = value;
@@ -26,6 +27,9 @@ class CategoryModel extends CommonModel {
 
   @JsonKey(name: CategoryTable.normalizedText)
   String? normalizedText;
+
+  @JsonKey(name: CategoryTable.icon)
+  String? icon;
 
   CategoryModel();
 

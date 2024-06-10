@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:money_calc/_common/providers/order_item.providers.dart';
 import 'package:money_calc/calculator/calculator.screen.dart';
+import 'package:money_calc/explore/explore.screen.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
@@ -35,15 +36,12 @@ class _MainAppState extends State<MainApp> {
         theme: ThemeData(useMaterial3: true, scaffoldBackgroundColor: Colors.grey.shade50),
         home: Scaffold(
             body: SafeArea(
-              child: Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: [
-                  const CalculatorScreen(),
-                  const CalculatorScreen(),
-                  const CalculatorScreen(),
-                  const CalculatorScreen()
-                ][_selectedIndex],
-              ),
+              child: [
+                const CalculatorScreen(),
+                const CalculatorScreen(),
+                const CalculatorScreen(),
+                const ExploreScreen()
+              ][_selectedIndex],
             ),
             bottomNavigationBar: Container(
                 decoration: const BoxDecoration(
@@ -80,14 +78,14 @@ class _MainAppState extends State<MainApp> {
                         label: 'Tổng quan',
                       ),
                       BottomNavigationBarItem(
-                        icon: Icon(Icons.person),
-                        label: 'Tôi',
+                        icon: Icon(Icons.dashboard),
+                        label: 'Thêm',
                       ),
                     ],
                     onTap: _onItemTapped,
                     currentIndex: _selectedIndex,
                     iconSize: 18.0,
-                    selectedItemColor: Colors.orange.shade400,
+                    selectedItemColor: Colors.green.shade400,
                     unselectedItemColor: Colors.grey.shade600,
                     showUnselectedLabels: true,
                   ),

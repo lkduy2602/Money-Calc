@@ -7,17 +7,20 @@ class CalculatorScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: [
-        Expanded(
-          child: CalcDisplayWidget(),
-        ),
-        SizedBox(height: 20.0),
-        Expanded(
-          child: TotalAmountCalculatorWidget(),
-        ),
-      ],
+    return const Padding(
+      padding: EdgeInsets.all(10.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          Expanded(
+            child: CalcDisplayWidget(),
+          ),
+          SizedBox(height: 20.0),
+          Expanded(
+            child: TotalAmountCalculatorWidget(),
+          ),
+        ],
+      ),
     );
   }
 }

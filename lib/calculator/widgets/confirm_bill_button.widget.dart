@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:money_calc/_common/helpers/database.helper.dart';
-import 'package:money_calc/_common/models/category.model.dart';
 
 class ConfirmBillButtonWidget extends StatefulWidget {
   const ConfirmBillButtonWidget({super.key});

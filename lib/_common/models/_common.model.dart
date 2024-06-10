@@ -3,7 +3,7 @@ import 'package:money_calc/_common/helpers/time.helper.dart';
 
 abstract class CommonTable {
   static const String createdAt = 'created_at';
-  static const String updatedAt = 'updatedAt';
+  static const String updatedAt = 'updated_at';
 }
 
 abstract class CommonModel {
