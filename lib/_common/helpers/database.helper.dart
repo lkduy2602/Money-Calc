@@ -37,7 +37,6 @@ class DatabaseHelper {
     await db.execute("PRAGMA foreign_keys = ON");
   }
 
-  // Tạo bảng
   Future<void> _onCreate(Database db, int version) async {
     final sqlFile = await rootBundle.loadString(_sqlFilePath);
 
@@ -49,13 +48,9 @@ class DatabaseHelper {
       batch.execute(sql);
     }
     await batch.commit(noResult: true);
-
-    print('onCreate');
   }
 
-  Future<void> _onUpgrade(Database db, int oldVersion, int newVersion) async {
-    print('onUpgrade');
-  }
+  Future<void> _onUpgrade(Database db, int oldVersion, int newVersion) async {}
 
   Future<void> close() async {
     if (_database == null) return;

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:money_calc/_common/widgets/navigation_item.widget.dart';
 
 class NavigationDrawerWidget extends StatefulWidget {
   const NavigationDrawerWidget({super.key});
@@ -17,29 +18,6 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
     setState(() => _isNavigating = true);
   }
 
-  Padding generateNavigationItem(IconData iconData, String text) {
-    return Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Icon(iconData, color: Colors.grey.shade600),
-                const SizedBox(width: 10.0),
-                Text(
-                  text,
-                  style: TextStyle(color: Colors.grey.shade900, fontSize: 16, fontWeight: FontWeight.w400, height: 0),
-                )
-              ],
-            ),
-            Icon(Icons.chevron_right, color: Colors.grey.shade600),
-          ],
-        ));
-  }
-
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -52,21 +30,39 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
                   color: Colors.white,
                   child: InkWell(
                     onTap: () {},
-                    child: generateNavigationItem(Icons.category, 'Quản lý DANH MỤC'),
+                    child: NavigationItemWidget(
+                        iconData: Icons.category,
+                        title: Text(
+                          'Quản lý DANH MỤC',
+                          style: TextStyle(
+                              color: Colors.grey.shade900, fontSize: 16, fontWeight: FontWeight.w400, height: 0),
+                        )),
                   )),
               const SizedBox(height: 1.0),
               Ink(
                   color: Colors.white,
                   child: InkWell(
                     onTap: () {},
-                    child: generateNavigationItem(Icons.inventory_2, 'Quản lý SẢN PHẨM'),
+                    child: NavigationItemWidget(
+                        iconData: Icons.inventory_2,
+                        title: Text(
+                          'Quản lý SẢN PHẨM',
+                          style: TextStyle(
+                              color: Colors.grey.shade900, fontSize: 16, fontWeight: FontWeight.w400, height: 0),
+                        )),
                   )),
               const SizedBox(height: 1.0),
               Ink(
                   color: Colors.white,
                   child: InkWell(
                     onTap: () {},
-                    child: generateNavigationItem(Icons.paid, 'Quản lý LOẠI CHI'),
+                    child: NavigationItemWidget(
+                        iconData: Icons.paid,
+                        title: Text(
+                          'Quản lý LOẠI CHI',
+                          style: TextStyle(
+                              color: Colors.grey.shade900, fontSize: 16, fontWeight: FontWeight.w400, height: 0),
+                        )),
                   )),
             ],
           ),

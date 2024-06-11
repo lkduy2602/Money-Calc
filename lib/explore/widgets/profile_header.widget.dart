@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:money_calc/_common/helpers/shared_preferences.helper.dart';
+import 'package:money_calc/app.router.dart';
 
 class ProfileHeaderWidget extends StatefulWidget {
   const ProfileHeaderWidget({super.key});
@@ -9,6 +10,8 @@ class ProfileHeaderWidget extends StatefulWidget {
 }
 
 class _ProfileHeaderWidgetState extends State<ProfileHeaderWidget> {
+  bool _isNavigating = false;
+
   String userName = '';
   String userAvatar = '';
 
@@ -26,6 +29,14 @@ class _ProfileHeaderWidgetState extends State<ProfileHeaderWidget> {
       userName = getUserName;
       userAvatar = getUserAvatar;
     });
+  }
+
+  void goToScreen(String path, BuildContext context) {
+    if (_isNavigating) return;
+
+    setState(() => _isNavigating = true);
+    router.push(path);
+    setState(() => _isNavigating = false);
   }
 
   @override
@@ -49,7 +60,7 @@ class _ProfileHeaderWidgetState extends State<ProfileHeaderWidget> {
               ],
             ),
             InkWell(
-              onTap: () {},
+              onTap: () => goToScreen('/settings', context),
               borderRadius: BorderRadius.circular(50.0),
               child: Icon(Icons.settings, size: 30.0, color: Colors.grey.shade600),
             )

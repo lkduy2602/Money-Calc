@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:money_calc/_common/providers/order_item.providers.dart';
+import 'package:money_calc/_common/providers/order_item.provider.dart';
 import 'package:money_calc/app.router.dart';
 import 'package:provider/provider.dart';
 
